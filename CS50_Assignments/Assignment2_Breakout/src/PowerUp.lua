@@ -38,6 +38,9 @@ end
 
 function PowerUp:render()
     if self.isfalling then
+        if self.power == nil then
+            self.power = 3
+        end
         love.graphics.draw(gTextures['main'],gFrames['powerups'][self.power],self.x , self.y)
     end
 end

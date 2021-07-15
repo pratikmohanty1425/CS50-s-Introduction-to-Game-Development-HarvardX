@@ -293,6 +293,7 @@ end
 ]]
 
 function renderkeys(keys)
+    --keeps the keys count on the screen
         love.graphics.setFont(gFonts['medium'])
         love.graphics.print(keys..'X', VIRTUAL_WIDTH-40, VIRTUAL_HEIGHT-20)
         love.graphics.draw(gTextures['main'],gFrames['powerups'][10], VIRTUAL_WIDTH-20, VIRTUAL_HEIGHT-20)
@@ -304,7 +305,7 @@ end
 function displayFPS()
     -- simple FPS display across all states
     love.graphics.setFont(gFonts['small'])
-    love.graphics.setColor(0, 255, 0, 255)
+    love.graphics.setColor(0, 1, 0, 1)
     love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 5, 5)
 end
 
