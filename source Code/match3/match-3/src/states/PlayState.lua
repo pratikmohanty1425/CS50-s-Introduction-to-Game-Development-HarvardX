@@ -183,6 +183,7 @@ function PlayState:calculateMatches()
     local matches = self.board:calculateMatches()
     
     if matches then
+        self.timer = self.timer + 5;
         gSounds['match']:stop()
         gSounds['match']:play()
 
@@ -199,6 +200,7 @@ function PlayState:calculateMatches()
 
         -- first, tween the falling tiles over 0.25s
         Timer.tween(0.25, tilesToFall):finish(function()
+            --self:calculateMatches()
             local newTiles = self.board:getNewTiles()
             
             -- then, tween new tiles that spawn from the ceiling over 0.25s to fill in
