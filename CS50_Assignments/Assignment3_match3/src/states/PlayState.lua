@@ -103,6 +103,7 @@ function PlayState:update(dt)
 
     --update 4
     --loop to go through each tile
+    --check if no match remains
     local matchfound = false 
     for y=1,8 do 
         for x=1,8 do 
@@ -113,7 +114,7 @@ function PlayState:update(dt)
             end
         end
     end
-
+    --if not found 
     if not matchfound then
         self.board:initializeTiles()
     end
@@ -266,7 +267,8 @@ function PlayState:calculateMatches()
         -- add score for each match
         for k, match in pairs(matches) do
 
-            -- update 3 add score for Bonus
+            -- update 3
+            -- shiny tile add score for Bonus
             local VarietyBonus = 0
             local ShinyBonus = 0
             for i, tile in pairs(match) do 

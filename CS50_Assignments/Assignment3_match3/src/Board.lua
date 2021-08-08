@@ -32,8 +32,8 @@ function Board:initializeTiles()
 
         for tileX = 1, 8 do
             --Update 2
-            --check if the level is 1 or >1
-            if self.level <= 2 then
+            --check if the level is 1 
+            if self.level == 1 then
                 table.insert(self.tiles[tileY], Tile(tileX, tileY, math.random(18), 1))
             else
                 table.insert(self.tiles[tileY], Tile(tileX, tileY, math.random(18), math.random(6)))
@@ -166,9 +166,12 @@ end
     Remove the matches from the Board by just setting the Tile slots within
     them to nil, then setting self.matches to nil.
 ]]
+-- Update 3 
+-- if match remove the entire row
 function Board:removeMatches()
     for k, match in pairs(self.matches) do
         for k, tile in pairs(match) do
+            
             if tile.isShiny then
                 for x=1,8 do 
                     self.tiles[tile.gridY][x] = nil
