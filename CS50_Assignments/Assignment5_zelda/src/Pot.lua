@@ -26,7 +26,7 @@ end
 
 function Pot:initThrow(direction)
     self.state = 'flying'
-    self.solid = false
+    self.solid = true
     self.moveSpeed = 100
     self.direction = direction
 end
@@ -39,7 +39,56 @@ function Pot:initDestroy()
 end
 
 function Pot:update(dt) 
+    --update 3
+    local collideWithWall = false 
+    if self.state == 'flying' then
+        if self.direction == 'left' then
+            self.x = self.x - self.moveSpeed * dt 
 
+            if self.x <= MAP_RENDER_OFFSET_X + TILE_SIZE then
+                self.x = MAP_RENDER_OFFSET_X + TILE_SIZE
+                collideWithWall = true
+            end
+        elseif self.direction == 'right' then
+            self.x = self.x + self.moveSpeed * dt 
+
+            if self.x + self.width >= VIRTUAL_WIDTH - TILE_SIZE * 2 then
+                self.x = VIRTUAL_WIDTH - TILE_SIZE * 2 - self.width
+                collideWithWall = true
+            end
+        elseif self.direction == 'up' then
+            self.y = self.y - self.moveSpeed * dt 
+
+            if self.y <= MAP_RENDER_OFFSET_Y + TILE_SIZE - self.height / 2 then
+                self.y = MAP_RENDER_OFFSET_Y + TILE_SIZE - self.height / 2
+                collideWithWall = true
+            end
+        elseif self.direction == 'down' then
+            self.y = self.y + self.moveSpeed * dt 
+
+            local bottomEdge = VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE)
+                + MAP_RENDER_OFFSET_Y - TILE_SIZE
+
+            if self.y + self.height >= bottomEdge then
+                self.y = bottomEdge - self.height
+                collideWithWall = true
+            end
+        end
+
+        self.distanceTraveled = self.distanceTraveled + self.moveSpeed * dt 
+        if self.distanceTraveled >= TILE_SIZE * 4 or collideWithWall then
+            self:initDestroy()
+        end
+    end
+
+    if self.state == 'broken' then
+        self.flashTimer = self.flashTimer + dt 
+        self.flashDuration = self.flashDuration + dt 
+
+        if self.flashDuration >= 1 then
+            self.toRemove = true
+        end
+    end
 end
 
 function Pot:render(adjacentOffsetX, adjacentOffsetY)

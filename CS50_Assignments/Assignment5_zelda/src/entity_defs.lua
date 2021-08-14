@@ -104,13 +104,13 @@ ENTITY_DEFS = {
                 looping = false,
                 texture = 'character-pot-walk'
             },
-            ['pot-idle-up'] = {
-                frames = {9},
+            ['pot-idle-down'] = {
+                frames = {1},
                 looping = false,
                 texture = 'character-pot-walk'
             },
-            ['pot-idle-down'] = {
-                frames = {1},
+            ['pot-idle-up'] = {
+                frames = {9},
                 looping = false,
                 texture = 'character-pot-walk'
             },
@@ -135,26 +135,26 @@ ENTITY_DEFS = {
                 texture = 'character-pot-walk'
             },
             ['pot-throw-left'] = {
-                frames = {1, 11, 12},
-                interval = 0.2,
+                frames = {12, 11, 10},
+                interval = 0.1,
                 looping = false,
                 texture = 'character-pot-lift'
             },
             ['pot-throw-right'] = {
-                frames = {1, 11, 12},
-                interval = 0.2,
-                looping = false,
-                texture = 'character-pot-lift'
-            },
-            ['pot-throw-up'] = {
-                frames = {1, 11, 12},
-                interval = 0.2,
+                frames = {6, 5, 4},
+                interval = 0.1,
                 looping = false,
                 texture = 'character-pot-lift'
             },
             ['pot-throw-down'] = {
-                frames = {1, 11, 12},
-                interval = 0.2,
+                frames = {3, 2, 1},
+                interval = 0.1,
+                looping = false,
+                texture = 'character-pot-lift'
+            },
+            ['pot-throw-up'] = {
+                frames = {9, 8, 7},
+                interval = 0.1,
                 looping = false,
                 texture = 'character-pot-lift'
             }

@@ -172,7 +172,9 @@ end
 
 function Room:update(dt)
     -- don't update anything if we are sliding to another room (we have offsets)
-    if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then return end
+    if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then 
+        return 
+    end
 
     self.player:update(dt)
 
@@ -212,6 +214,16 @@ function Room:update(dt)
                 gStateMachine:change('game-over')
             end
         end
+        --update 3
+        for k, object in pairs(self.objects) do 
+            if object.solid then
+                if entity:collides(object) and object.state == 'flying' then
+                    entity:damage(1)
+                    gSounds['hit-enemy']:play()
+                    object:initDestroy()
+                end
+            end
+        end
     end
 
     -- update 1++
@@ -226,15 +238,18 @@ function Room:update(dt)
                 table.remove( self.objects, k )
             end
         end
-    end
-    --++
 
-    for k, object in pairs(self.objects) do
-        object:update(dt)
+        -- collision between 
+        if object.solid and object.state == 'flying' then
+            for j, innerobject in pairs(self.objects) do 
+                if k ~= j and innerobject.solid and object:collides(innerobject) then
+                    object:initDestroy()
+                end
+            end
+        end
 
-        -- trigger collision callback on object
-        if self.player:collides(object) then
-            object:onCollide()
+        if object.toRemove then
+            table.remove( self.objects,k )
         end
     end
 end
@@ -297,7 +312,7 @@ function Room:render()
     
     for k, object in pairs(self.objects) do 
         if object.types == 'pot' then 
-            if object.state == lifted or object.state == 'flying' then 
+            if object.state == 'lifted' or object.state == 'flying' then 
                 object:render(self.adjacentOffsetX, self.adjacentOffsetY)
             end
         end

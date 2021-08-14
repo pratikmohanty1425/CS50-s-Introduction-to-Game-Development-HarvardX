@@ -9,13 +9,13 @@
 PlayerPotWalkState = Class{__includes = EntityWalkState}
 
 function PlayerPotWalkState:init(player, dungeon)
-    self.player = player
+    self.entity = player
     self.dungeon = dungeon
     self.pot = nil
 
     self.bumped = false
     
-    self.player:changeAnimation('pot-walk-' .. self.player.direction)
+    self.entity:changeAnimation('pot-walk-' .. self.entity.direction)
 
 end
 
